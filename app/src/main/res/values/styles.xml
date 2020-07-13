@@ -6,7 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/colorWhite1</item>
+
+
+
+
 
     </style>
+
+    <style name="TextInputLayoutTheme" parent="@style/AppTheme">
+        <item name="colorPrimary">@color/colorGreenFav</item>
+        <item name="colorAccent">@color/colorGreenFav</item>
+        <item name="android:textColorHint">@color/black_overlay</item>
+        <item name="android:colorControlActivated">@color/colorGreenFav</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+    </style>
+
 
 </resources>

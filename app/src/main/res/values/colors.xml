@@ -12,8 +12,14 @@
     <color name="colorSea">#c0eaf6 </color>
     <color name="colorPinkLight">#ffd9cc</color>
     <color name="colorGreenMix">#b2d8b2</color>
+    <color name="colorGreenFav">#06A108</color>
     <color name="colorYellow">#FFC107</color>
+    <color name="colorWhite1">#f7f7f7</color>
     <color name="colorAmber">#FFBF00</color>
+    <color name="colorRipple">#2f424242</color>
+    <color name="colorBlueDim">#3c415e</color>
+    <color name="colorShadow">#1f212121</color>
+    <color name="colorRed">#8B0000</color>
     <color name="colorTransparent">#00FDFDFD</color>
 
 </resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/FragInfo"
+    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".InfoFragment">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/txtv_developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_instagram"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/adamina"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/developer"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+
+
+    <TextView
+        android:id="@+id/txtv_Privacy_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_security_24dp"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/adamina"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintTop_toBottomOf="@id/txtv_developer" />
+
+    <TextView
+        android:id="@+id/txtv_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_info_24dp"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/adamina"
+        android:padding="16dp"
+        android:text="@string/version"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtv_Privacy_policy" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_shape"
+        android:textColor="@color/colorWhite"
+        android:text="Logout"
+        android:fontFamily="@font/adamina"
+        android:textAllCaps="false"
+        android:id="@+id/logoutBtn"
+        app:layout_constraintTop_toBottomOf="@id/txtv_version"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:foreground="?android:attr/selectableItemBackground"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/red_btn_shape"
+        app:layout_constraintTop_toBottomOf="@id/logoutBtn"
+        android:fontFamily="@font/adamina"
+        android:textAllCaps="false"
+        android:text="Permanently Delete Account"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="@id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="@id/logoutBtn"
+        android:layout_marginTop="16dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:id="@+id/deleteAccBtn"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorGreenFav"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/loading"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:layout_constraintTop_toBottomOf="@id/deleteAccBtn"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:adUnitId="ca-app-pub-5657577738944896/1021459862">
+    </com.google.android.gms.ads.AdView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,9 +8,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.util.Function;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.nature.thenature.Adapter.StaggeredRecylerAdapter;
 import com.nature.thenature.Model.wallpapers;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -22,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 public class DashBoardActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private FirebaseAuth mAuth;
@@ -32,16 +38,66 @@ public class DashBoardActivity extends AppCompatActivity {
     private StaggeredRecylerAdapter adapter;
     private StaggeredGridLayoutManager manager;
     private AdView mAdView;
-
+    private MeowBottomNavigation meowBottomNavigation;
+    private final static int ID_DASHBOARD = 1;
+    private final static int ID_HEART = 2;
+    private final static int ID_CAMERA = 3;
+    private final static int ID_INFO = 4;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board);
+        setContentView(R.layout.fragment_main);
+        meowBottomNavigation = findViewById(R.id.bottom_navigation_bar);
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_dashboard_black_24dp));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_heart_red));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_camera_enhance_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.ic_info_24dp));
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
+        meowBottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                Fragment selected_fragment = null;
+                switch (model.getId()) {
+                    case ID_DASHBOARD:
+                        selected_fragment = new DashboardFragment();
+                        mTitle.setText(R.string.explore);
+                        mFloatingActionButton.setVisibility(View.VISIBLE);
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected_fragment).commit();
+
+                        break;
+                    case ID_HEART:
+                        selected_fragment = new Fav_Fragment();
+                        mTitle.setText(R.string.favourites);
+                        mFloatingActionButton.setVisibility(View.GONE);
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new Fav_Fragment()).commit();
+
+                        break;
+                    case ID_CAMERA:
+                        selected_fragment = new CameraFragment();
+                        mTitle.setText(R.string.favourites);
+                        mFloatingActionButton.setVisibility(View.GONE);
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected_fragment).commit();
+
+                        break;
+                    case ID_INFO:
+                        selected_fragment = new InfoFragment();
+                        mTitle.setText(R.string.info);
+                        mFloatingActionButton.setVisibility(View.GONE);
+                       // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected_fragment).commit();
+
+                        break;
+
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected_fragment).commit();
+                return Unit.INSTANCE;
+            }
+
+        });
         //init recylerview and set layout manager
         staggeredRv = findViewById(R.id.recyclerView);
-        manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         staggeredRv.setLayoutManager(manager);
         //end
 
@@ -67,22 +123,22 @@ public class DashBoardActivity extends AppCompatActivity {
         setToolbarTitle();
 
         //initailize and assignc variable of bottom navigation
-        initvariablesBottomnavigation();
+        // initvariablesBottomnavigation();
 
         // //Get Firebase with instance
-       // getFirebaseInstances();
-//        mAthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user == null){
-//                    // user auth state is changed - user is null
-//                    // launch login activity
-//                    startActivity(new Intent(DashBoardActivity.this, LoginActivity.class));
-//                    finish();
-//                }
-//            }
-//        };
+         getFirebaseInstances();
+        mAthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null){
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(DashBoardActivity.this, SignUpPhoneActivity.class));
+                    finish();
+                }
+            }
+        };
         //on click listenre on floating action button
         floatingactionbutonClicklisner();
     }
@@ -92,7 +148,7 @@ public class DashBoardActivity extends AppCompatActivity {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashBoardActivity.this,SearchViewActivity.class));
+                startActivity(new Intent(DashBoardActivity.this, SearchViewActivity.class));
                 finish();
             }
         });
@@ -100,8 +156,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void setToolbarTitle() {
         mTitle.setText(R.string.explore);
-        mTitle.setTextColor(getResources().getColor(R.color.colorBlack));
-        mTitle.setTextSize(18);
+
     }
 
     private void InitVariables() {
@@ -111,36 +166,6 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void getFirebaseInstances() {
         mAuth = FirebaseAuth.getInstance();
-    }
-
-    private void initvariablesBottomnavigation() {
-        mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        // set home selected
-        mBottomNavigationView.setSelectedItemId(R.id.dashboard);
-
-        //perform itemselectedlistener
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.dashboard:
-                        return true;
-                    case R.id.home:
-                        startActivity(new Intent(DashBoardActivity.this, MainActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.profile:
-//                        startActivity(new Intent(DashBoardActivity.this, ProfileAcitivity.class));
-//                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(DashBoardActivity.this, AboutAcivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
-            }
-        });
     }
 
 
@@ -154,7 +179,7 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
-        mAuth.addAuthStateListener(mAthListener);
+        //mAuth.addAuthStateListener(mAthListener);
 
     }
 
@@ -162,10 +187,11 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
-        if(mAthListener!=null){
-            mAuth.removeAuthStateListener(mAthListener);
-        }
+//        if(mAthListener!=null){
+//            mAuth.removeAuthStateListener(mAthListener);
+//        }
     }
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);

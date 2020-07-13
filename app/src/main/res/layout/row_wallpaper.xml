@@ -10,7 +10,6 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp">
 
-
         <ImageView
             android:id="@+id/iv_wallpaper"
             android:layout_width="match_parent"
@@ -19,10 +18,5 @@
             android:src="@drawable/ic_technology"
             android:adjustViewBounds="true"
             tools:targetApi="m" />
-
-
-
-
-
 
 </androidx.cardview.widget.CardView>

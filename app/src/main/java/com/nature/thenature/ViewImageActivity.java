@@ -57,7 +57,6 @@ public class ViewImageActivity extends AppCompatActivity implements RewardedVide
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image);
 
-
         initVariable();
         //Initialize adds
         interstitialAd = new InterstitialAd(this);
@@ -75,10 +74,10 @@ public class ViewImageActivity extends AppCompatActivity implements RewardedVide
         mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",new AdRequest.Builder().build());
 
 
-        //Get Firebase with instance
+//        Get Firebase with instance
         getFirebaseInstances();
 
-        //get current user
+//        get current user
         final FirebaseUser user = mAuth.getCurrentUser();
          uid = user.getUid();
 
@@ -189,7 +188,7 @@ public class ViewImageActivity extends AppCompatActivity implements RewardedVide
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(ViewImageActivity.this, DashBoardActivity.class));
+               // getSupportFragmentManager().beginTransaction().replace(R.id.)
                 finish();
             }
         });

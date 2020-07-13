@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/white_btn_shape"
+                android:background="@drawable/red_btn_shape"
                 android:fontFamily="@font/adamina"
                 android:text="@string/change_email"
                 android:textColor="@color/colorBlack"

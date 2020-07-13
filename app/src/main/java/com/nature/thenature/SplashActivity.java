@@ -1,12 +1,16 @@
 package com.nature.thenature;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,20 +18,20 @@ import com.bumptech.glide.Glide;
 
 public class SplashActivity extends AppCompatActivity {
     Animation anim;
-    TextView mTextview;
-    ImageView splash_iv;
+   ImageView iv_n;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        splash_iv = findViewById(R.id.spalsh_iv);
         //full screen activity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //end
-        Glide.with(this)
-                .load(R.drawable.app_banner)
-                .into(splash_iv);
-        mTextview = findViewById(R.id.activity_splash_textv_nature);
+
+
+        iv_n = findViewById(R.id.iv_n);
         anim = AnimationUtils.loadAnimation(this,R.anim.zoom_in);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -37,8 +41,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent i = new Intent(SplashActivity.this,DashBoardActivity.class);
-                startActivity(i);
+                startActivity(new Intent(SplashActivity.this,SignUpPhoneActivity.class));
                 finish();
             }
 
@@ -47,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
-        mTextview.startAnimation(anim);
+        iv_n.startAnimation(anim);
 
 
     }

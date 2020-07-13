@@ -19,14 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SearchViewActivity extends AppCompatActivity {
 
-    private ImageView mIconBack,mIvSearchBtn;
+    private ImageView mIconBack, mIvSearchBtn;
     private RecyclerView rvStaggered;
     private StaggeredGridLayoutManager manager;
     private EditText mEditTextSearchField;
     private DatabaseReference mWallpaperDatabaseRef;
     private StaggeredRecylerAdapter adapter;
-
-
 
 
     @Override
@@ -36,7 +34,7 @@ public class SearchViewActivity extends AppCompatActivity {
         mWallpaperDatabaseRef = FirebaseDatabase.getInstance().getReference().child("wallpapers");
         //init recylerview and set layout manager
         rvStaggered = findViewById(R.id.recyclerView);
-        manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rvStaggered.setLayoutManager(manager);
         //end
 
@@ -52,10 +50,10 @@ public class SearchViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String searchText = mEditTextSearchField.getText().toString();
-                Log.e("search Text",searchText);
-                if (searchText.isEmpty()){
+                Log.e("search Text", searchText);
+                if (searchText.isEmpty()) {
                     mEditTextSearchField.setError("Enter wallpaper's category!");
-                }else {
+                } else {
                     firebaseSearchWallpaper(searchText);
                 }
 
@@ -70,7 +68,7 @@ public class SearchViewActivity extends AppCompatActivity {
 //        Log.e("Query", String.valueOf(query));
         //set Query when data is changed it will notify
         FirebaseRecyclerOptions<wallpapers> options = new FirebaseRecyclerOptions.Builder<wallpapers>()
-                .setQuery(mWallpaperDatabaseRef.orderByChild("SearchWallpaper").startAt(searchText).endAt(searchText+"\ufBff"), wallpapers.class)
+                .setQuery(mWallpaperDatabaseRef.orderByChild("SearchWallpaper").startAt(searchText).endAt(searchText + "\ufBff"), wallpapers.class)
                 .build();//end
 
 
@@ -82,15 +80,12 @@ public class SearchViewActivity extends AppCompatActivity {
     }
 
 
-
-
     private void backIconaction() {
         mIconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(SearchViewActivity.this, DashBoardActivity.class));
                 finish();
+
             }
         });
     }
@@ -107,7 +102,6 @@ public class SearchViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         moveTaskToBack(true);
     }
 }

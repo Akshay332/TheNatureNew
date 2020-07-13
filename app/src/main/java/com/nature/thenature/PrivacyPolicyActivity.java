@@ -23,7 +23,6 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         mIconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PrivacyPolicyActivity.this,AboutAcivity.class));
                 finish();
             }
         });
